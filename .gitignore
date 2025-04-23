@@ -1,0 +1,40 @@
+# Node
+node_modules/
+
+# Angular
+/dist/
+/.angular/cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Others
+*.swp
+*.swo
+
+# Build
+/build/
+
+# Coverage
+coverage/
+
+# Misc
+*.bak
+*.tmp
