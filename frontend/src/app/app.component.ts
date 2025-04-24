@@ -10,10 +10,6 @@ import { FormsModule } from '@angular/forms';
   template: `
     <div style="text-align: center; padding: 20px;">
       <h1>{{ message }}</h1>
-      <button (click)="getMessage()" style="padding: 10px 20px; margin: 10px;">
-        Obtener Mensaje
-      </button>
-
       <div style="margin-top: 20px;">
         <h2>Chat con IA</h2>
         <div style="max-width: 500px; margin: 0 auto;">
@@ -54,13 +50,12 @@ export class AppComponent {
 
   sendMessage() {
     if (!this.userMessage.trim()) return;
-    
     this.isLoading = true;
-    this.http.post<{message: string}>('http://localhost:8000/chat', {
-      message: this.userMessage
-    }).subscribe({
+    this.http.post<{response: string}>('http://localhost:8000/query',
+      { query: this.userMessage }
+    ).subscribe({
       next: (response) => {
-        this.chatResponse = response.message;
+        this.chatResponse = response.response;
         this.isLoading = false;
       },
       error: (error) => {
