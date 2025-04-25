@@ -7,13 +7,11 @@ import requests
 
 load_dotenv()
 
-HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
-# Usamos el modelo Meta Llama 3 (8B Instruct)
-HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct"
+TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
+TOGETHER_API_URL = "https://api.together.xyz/v1/chat/completions"
 
-app = FastAPI(title="API con FastAPI y Meta Llama 3")
+app = FastAPI(title="API con FastAPI y Meta-Llama-3-8B-Instruct (Together AI)")
 
-# Configuración de CORS para permitir requests desde el frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:4200"],
@@ -26,28 +24,24 @@ class QueryRequest(BaseModel):
     query: str
 
 @app.post("/query")
-async def query_llama(request: QueryRequest):
+async def query_together(request: QueryRequest):
     headers = {
-        "Authorization": f"Bearer {HUGGINGFACE_API_KEY}",
+        "Authorization": f"Bearer {TOGETHER_API_KEY}",
         "Content-Type": "application/json"
     }
     data = {
-        "inputs": request.query,
-        "parameters": {"max_new_tokens": 256, "temperature": 0.7},
-        "options": {"wait_for_model": True}
+        "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "messages": [
+            {"role": "user", "content": request.query}
+        ],
+        "max_tokens": 256,
+        "temperature": 0.7
     }
     try:
-        response = requests.post(HUGGINGFACE_API_URL, headers=headers, json=data)
+        response = requests.post(TOGETHER_API_URL, headers=headers, json=data)
         response.raise_for_status()
         result = response.json()
-        if isinstance(result, list) and len(result) > 0 and 'generated_text' in result[0]:
-            answer = result[0]['generated_text']
-        elif isinstance(result, dict) and 'generated_text' in result:
-            answer = result['generated_text']
-        elif isinstance(result, list) and len(result) > 0 and 'generated_text' in result[-1]:
-            answer = result[-1]['generated_text']
-        else:
-            answer = str(result)
+        answer = result["choices"][0]["message"]["content"]
         return {"response": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al procesar la solicitud: {str(e)}")
@@ -58,7 +52,7 @@ async def hola_mundo():
 
 @app.get("/")
 async def root():
-    return {"message": "API con FastAPI y Meta Llama 3 funcionando"}
+    return {"message": "API con FastAPI y Meta-Llama-3-8B-Instruct (Together AI) funcionando"}
 
 if __name__ == "__main__":
     import uvicorn
