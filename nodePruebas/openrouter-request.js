@@ -1,0 +1,35 @@
+import fetch from 'node-fetch';
+
+async function main() {
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "HTTP-Referer": "https://mhtest.alwaysdata.net/#/",
+        "X-Title": "Mhosan",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "model": "qwen/qwen3-0.6b-04-28:free",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Cual es el sentido de la vida?"
+          }
+        ]
+      })
+    });
+
+    const data = await response.json();
+    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+      console.log(data.choices[0].message.content);
+    } else {
+      console.log('No message content found:', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+main();
