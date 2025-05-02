@@ -15,7 +15,10 @@ async function main() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "qwen/qwen3-0.6b-04-28:free",
+        //"model": "qwen/qwen3-0.6b-04-28:free",
+        //"model": "microsoft/phi-4-reasoning-plus:free",
+        //"model": "deepseek/deepseek-chat-v3-0324:free",
+        "model": "google/gemini-2.0-flash-exp:free",
         "messages": [
           {
             "role": "user",
