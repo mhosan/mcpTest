@@ -1,11 +1,18 @@
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+dotenv.config();
+
+ //"Authorization": `Bearer ${process.env.AUTHORIZATION_BEARER}`,
+ //"Authorization": "Bearer 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",
 
 async function main() {
   try {
+    console.log('Bearer:', process.env.AUTHORIZATION_BEARER);
+
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",
+        "Authorization": `Bearer ${process.env.AUTHORIZATION_BEARER}`,
         "HTTP-Referer": "https://mhtest.alwaysdata.net/#/",
         "X-Title": "Mhosan",
         "Content-Type": "application/json"
