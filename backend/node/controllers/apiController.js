@@ -17,7 +17,12 @@ const postChat = async (req, res) => {
       },
       body: JSON.stringify({
         //"model": body.model || "microsoft/phi-4-reasoning-plus:free",
-        "model": body.model || "deepseek/deepseek-chat-v3-0324:free",
+        //"model": body.model || "deepseek/deepseek-chat-v3-0324:free",
+        //"model": body.model || "deepseek/deepseek-r1:free",
+        //"model": body.model || "mistralai/mistral-7b-instruct:free",
+        //"model": body.model || "google/learnlm-1.5-pro-experimental:free",
+        //"model": body.model || "meta-llama/llama-3.2-3b-instruct:free",
+        "model": body.model || "qwen/qwq-32b:free",
         "messages": body.messages || [
           { role: "user", content: "¿Cuantos términos tiene la serie de Fibonacci?" },
           { role: 'assistant', content: "No esto seguro, pero mi mejor suposición es" },
