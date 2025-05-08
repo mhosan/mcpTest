@@ -16,7 +16,8 @@ const postChat = async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": body.model || "microsoft/phi-4-reasoning-plus:free",
+        //"model": body.model || "microsoft/phi-4-reasoning-plus:free",
+        "model": body.model || "deepseek/deepseek-chat-v3-0324:free",
         "messages": body.messages || [
           { role: "user", content: "¿Cuantos términos tiene la serie de Fibonacci?" },
           { role: 'assistant', content: "No esto seguro, pero mi mejor suposición es" },
@@ -27,7 +28,9 @@ const postChat = async (req, res) => {
 
     const data = await response.json();
     if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-      res.json({ message: data.choices[0].message.content });
+      const pretty = JSON.stringify({ message: data.choices[0].message.content }, null, 2);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(pretty);
     } else {
       res.status(500).json({ error: 'No message content found', data });
     }
