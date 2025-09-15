@@ -4,12 +4,12 @@ Esta es una implementación en Node.js para interactuar con la API de OpenRouter
 
 ## Configuración
 
-1. Crea un archivo `.env` en este directorio con tu clave API de OpenRouter:
+1. Crea un archivo `.env` en este directorio con la clave API de OpenRouter:
 ```
 AUTHORIZATION_BEARER=tu_clave_api_aquí
 ```
 
-2. Instala las dependencias:
+2. Instalar dependencias:
 ```bash
 npm install node-fetch dotenv
 ```
@@ -28,7 +28,7 @@ La implementación actualmente soporta varios modelos que pueden ser descomentad
 
 ## Uso
 
-Ejecuta el script con:
+Ejecutar el script con:
 ```bash
 node openrouter-request.js
 ```

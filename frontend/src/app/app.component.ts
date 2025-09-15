@@ -51,7 +51,7 @@ export class AppComponent {
   sendMessage() {
     if (!this.userMessage.trim()) return;
     this.isLoading = true;
-    this.http.post<{response: string}>('http://localhost:8000/query',
+    this.http.post<{response: string}>('http://localhost:3000/query',
       { query: this.userMessage }
     ).subscribe({
       next: (response) => {
